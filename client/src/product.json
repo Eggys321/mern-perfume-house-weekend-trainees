@@ -6,7 +6,7 @@
     "rating": "5.0",
     "rateCount": "24",
     "price": "3000",
-    "dicountPrice": "4,000"
+    "discountPrice": "4,000"
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "rating": "5.0",
     "rateCount": "24",
     "price": "3000",
-    "dicountPrice": "4,000"
+    "discountPrice": "4,000"
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "rating": "5.0",
     "rateCount": "24",
     "price": "3000",
-    "dicountPrice": "4,000"
+    "discountPrice": "4,000"
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "rating": "5.0",
     "rateCount": "24",
     "price": "3000",
-    "dicountPrice": "4,000"
+    "discountPrice": "4,000"
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "rating": "5.0",
     "rateCount": "24",
     "price": "3000",
-    "dicountPrice": "4,000"
+    "discountPrice": "4,000"
   },
   {
     "id": 6,
@@ -51,6 +51,6 @@
     "rating": "5.0",
     "rateCount": "24",
     "price": "3000",
-    "dicountPrice": "4,000"
+    "discountPrice": "4,000"
   }
 ]

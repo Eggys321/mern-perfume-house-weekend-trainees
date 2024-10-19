@@ -6,10 +6,10 @@ const cartItemsFromLocalStoragePerf = JSON.parse(localStorage.getItem("cart")) |
 export const CartProvider = ({children})=>{
     const [cart, setCart] = useState(cartItemsFromLocalStoragePerf);
     const handleAddToCart = (item)=>{
-        const isPresent = cart.some((product)=> product.id === item.id)
+        const isPresent = cart.some((product)=> product._id === item._id)
         if(isPresent){
           const updatedCart = cart.map((product)=>{
-            product.id === item.id ? {...product, quantity:product.quantity + 1}:product
+            product._id === item._id ? {...product, quantity:product.quantity + 1}:product
           })
           setCart(updatedCart);
         }else{
@@ -22,8 +22,8 @@ export const CartProvider = ({children})=>{
       }
     
       // function to remove item
-      function removeItem (id){
-        let remove = cart.filter((cartItx)=> cartItx.id !== id);
+      function removeItem (_id){
+        let remove = cart.filter((cartItx)=> cartItx._id !== _id);
         setCart(remove)
         // localStorage.setItem('cart', JSON.stringify(remove));
 
@@ -33,7 +33,7 @@ export const CartProvider = ({children})=>{
        // handle inc
        const handleIncreaseQuantity = (itemId) => {
         const updatedCart = cart.map((product) =>
-          product.id === itemId ? { ...product, quantity: product?.quantity + 1 } : product
+          product._id === itemId ? { ...product, quantity: product?.quantity + 1 } : product
         );
         setCart(updatedCart);
       };
@@ -41,7 +41,7 @@ export const CartProvider = ({children})=>{
       // handle dec
       const handleDecreaseQuantity = (itemId) => {
         const updatedCart = cart.map((product) => {
-          if (product.id === itemId) {
+          if (product._id === itemId) {
             const newQuantity = product.quantity > 1 ? product.quantity - 1 : 1;
             return { ...product, quantity: newQuantity };
           }

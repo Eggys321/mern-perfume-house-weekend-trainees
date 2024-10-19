@@ -1,17 +1,20 @@
 import express from "express";
 const app = express();
 const port = 3000;
-import mongoose from "mongoose";
 import { connect } from "./db/db.js";
 import dotenv from "dotenv";
+import productRoute from "./routes/productRoute.js";
+import cors from "cors"
 
 dotenv.config()
-
+app.use(cors());
+app.use(express.json())
+app.use("/api/product" ,productRoute)
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "server is live" });
+  res.status(200).json({success:true, message: "server is live" });
 });
 app.use((req, res) => {
-  res.status(404).json({ errMsg: "route not found" });
+  res.status(404).json({success:false, errMsg: "route not found" });
 });
 
 

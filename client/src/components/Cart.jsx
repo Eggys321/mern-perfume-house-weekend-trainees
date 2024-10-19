@@ -21,11 +21,11 @@ const Cart = () => {
         {cart.map((cartItem) => {
                     if (!cartItem) return null;
 
-          const { id, title, price, button, image } = cartItem;
+          const { _id, title, price, button, image } = cartItem;
           return (
             <div
               className="cart-details d-flex gap-5 gap-lg-3 align-items-center cart py-0 my-0"
-              key={id}
+              key={_id}
             >
               <div className="cart-1">
                 <img className="cart-img" src={image} alt="product image" />
@@ -33,15 +33,15 @@ const Cart = () => {
               <div className="cart-2 d-flex flex-column m-0 p-0">
                 <h4 className="cart-title">{title}</h4>
                 <div className="d-flex gap-2 align-items-center">
-                  <button className="subtract-cart" onClick={()=>handleDecreaseQuantity(id)}>-</button>
+                  <button className="subtract-cart" onClick={()=>handleDecreaseQuantity(_id)}>-</button>
                   <p className="pt-3 cart-number">{cartItem.quantity} </p>
-                  <button className="add-cart text-center" onClick={()=>handleIncreaseQuantity(id)}>+</button>
+                  <button className="add-cart text-center" onClick={()=>handleIncreaseQuantity(_id)}>+</button>
                 </div>
                 <div className="d-flex justify-content-between m-0">
                   <p className="cart-price">N{price}</p>
                   <button
                     className="remove-cart"
-                    onClick={() => removeItem(id)}
+                    onClick={() => removeItem(_id)}
                   >
                     {" "}
                     remove
