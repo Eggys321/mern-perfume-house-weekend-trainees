@@ -6,7 +6,7 @@
 
 @font-face {
   font-family: newrial-gotesk;
-  src: url("./assets/fonts/Fontspring-DEMO-neurialgrotesk-regular.otf");
+  src: url("./fonts/Fontspring-DEMO-neurialgrotesk-regular.otf");
 }
 :root {
   --ff-sansita: "Sansita", sans-serif;
