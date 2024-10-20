@@ -2,7 +2,8 @@ import express from "express";
 import { connect } from "./db/db.js";
 import dotenv from "dotenv";
 import productRoute from "./routes/productRoute.js";
-import authRoute from "./routes/authRoute.js"
+import authRoute from "./routes/authRoute.js";
+import orderRoute from "./routes/orderRoute.js"
 import cors from "cors"
 
 const app = express();
@@ -10,8 +11,9 @@ const port = 3000;
 dotenv.config()
 app.use(cors());
 app.use(express.json())
-app.use("/api/product" ,productRoute)
-app.use("/api/auth",authRoute)
+app.use("/api/product" ,productRoute);
+app.use("/api/auth",authRoute);
+app.use("/api/order",orderRoute)
 app.get("/", (req, res) => {
   res.status(200).json({success:true, message: "server is live" });
 });
