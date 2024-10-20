@@ -20,8 +20,12 @@ export const createProduct = async(req,res)=>{
 // R -- read in CRUD
 
 export const allProducts = async(req,res)=>{
+    console.log("Fetching products...");
+
     try {
         const product = await PRODUCT.find();
+        console.log("Products fetched successfully");
+
         if(product && product.length === 0){
             res.status(400).json({success:false,errMsg:"no product(s) found /  created"})
             return
@@ -30,6 +34,8 @@ export const allProducts = async(req,res)=>{
         res.status(200).json({success:true,message:"product(s)",product})
     } catch (error) {
         console.log(error.message);
+        console.error("Error fetching products:", error.message);
+
         res.status(500).json(error.message)
     }
 }
