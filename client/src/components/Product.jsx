@@ -8,21 +8,34 @@ import CartContext from "../context/CartContext";
 
 const Product = () => {
   const [data,setData] = useState([])
+  const [isLoading,setIsLoading] = useState(false)
   const getData = async()=>{
     try {
+      setIsLoading(true)
       const req = await fetch("http://localhost:3000/api/product/products");
       const res = await req.json();
       console.log(res.product);
       setData(res.product)
     } catch (error) {
+      console.log(error.message);
       
+    }finally{
+      setIsLoading(false)
     }
     
   }
 
+  
   useEffect(()=>{
     getData()
   },[])
+  // if(isLoading){
+  //   return(
+  //     <div className="d-flex justify-content-center align-items-center vh-100">
+  //       <h2>products Loading... </h2>
+  //     </div>
+  //   )
+  // }
 
 
   const {handleAddToCart,cart} = useContext(CartContext)
@@ -30,7 +43,7 @@ const Product = () => {
   return (
     <>
       <main className="d-flex flex-wrap justify-content-between gap-4 pt-2">
-        {data.map((product) => {
+        {data?.map((product) => {
           const { image, _id, title, price, discountPrice, rateCount, rating } =
             product;
           return (

@@ -57,7 +57,8 @@ const Cart = () => {
             <div className="checkout-container">
               <div className="checkout">
                 <p className="checkout-title">Sub Total</p>
-                <p className="checkout-price">18,000</p>
+                <p className="checkout-price">N{calcTotalPrice.toLocaleString()}
+                </p>
               </div>
               <div className="checkout">
                 <p className="checkout-title">Delivery</p>
@@ -67,7 +68,7 @@ const Cart = () => {
                 <p className="checkout-title">Total</p>
                 <p className="checkout-price">
                   {" "}
-                  #{calcTotalPrice.toLocaleString()}{" "}
+                  N{(calcTotalPrice + 8000).toLocaleString()}{" "}
                 </p>
               </div>
             </div>
