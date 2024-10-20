@@ -26,3 +26,40 @@ export const signUp = async(req,res)=>{
         res.status(500).json(error.message)
     }
 }
+
+export const signIn = async(req,res)=>{
+    const {email,password} = req.body;
+    if(!email || !password){
+        res.status(400).json({success:false,errMsg:"all fields are required"})
+        return
+    }
+    try {
+        // finding a registered email
+        const user = await CUSTOMER.findOne({email});
+        if(!user){
+            res.status(400).json({success:false,errMsg:"user not found"});
+            return
+        }
+        // comparing hashed password
+        const isMatch = await user.comparePassword(password);
+        if(!isMatch){
+            res.status(400).json({success:false,errMsg:"email or password incorrect"});
+            return;
+        }
+        // generating token
+        const token = await user.generateToken();
+        if(token){
+
+            res.status(201).json({success:true,message:"logged in",user:{
+                firstName:user.firstName,
+                lastName:user.lastName,
+                token
+            }})
+            return;
+        }
+
+    } catch (error) {
+        res.status(500).json(error.message)
+
+    }
+}
