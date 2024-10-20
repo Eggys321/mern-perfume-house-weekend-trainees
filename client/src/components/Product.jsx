@@ -1,7 +1,7 @@
 import React,{useContext, useEffect, useState} from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import ratingImg from "../assets/STar 1 (1).jpg";
+import ratingImg from "../assets/Star 1 (1).jpg";
 import products from "../product.json";
 import CartContext from "../context/CartContext";
 
