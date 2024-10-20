@@ -29,13 +29,13 @@ const Product = () => {
   useEffect(()=>{
     getData()
   },[])
-  // if(isLoading){
-  //   return(
-  //     <div className="d-flex justify-content-center align-items-center vh-100">
-  //       <h2>products Loading... </h2>
-  //     </div>
-  //   )
-  // }
+  if(isLoading){
+    return(
+      <div className="d-flex justify-content-center align-items-center vh-100">
+        <h2>products Loading... </h2>
+      </div>
+    )
+  }
 
 
   const {handleAddToCart,cart} = useContext(CartContext)
