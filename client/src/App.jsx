@@ -5,6 +5,8 @@ import Navbar from "./layout/Navbar";
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
+
 // const cartItemsFromLocalStoragePerf = JSON.parse(localStorage.getItem("cart")) || []
 function App() {
   // const [cart, setCart] = useState(cartItemsFromLocalStoragePerf);
@@ -63,6 +65,7 @@ function App() {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<SignUp />} />
         </Routes>
+        <Toaster />
       </BrowserRouter>
       {/* below explained props */}
       {/* <BrowserRouter>

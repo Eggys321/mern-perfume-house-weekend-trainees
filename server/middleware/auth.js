@@ -11,7 +11,7 @@ export const auth = async(req,res,next)=>{
 
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRETE);
-        req.user = {userId:payload.userId}
+        req.user = {userId:payload.userId,firstName:payload.firstName,lastName:payload.lastName}
         next()
     } catch (error) {
         return res.status(401).json({message:"Auth Failed"})

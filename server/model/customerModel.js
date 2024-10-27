@@ -55,7 +55,9 @@ customerSchema.methods.comparePassword = async function(customerPassword){
 
 // generating token
 customerSchema.methods.generateToken = async function(params){
-    let token =  jwt.sign({userId:this._id,firstName:this.firstName,lastName:this.lastName},process.env.JWT_SECRETE);
+    let token =  jwt.sign({userId:this._id,firstName:this.firstName,lastName:this.lastName},process.env.JWT_SECRETE,{
+        expiresIn:"24h"
+    });
     return token;
 }
 

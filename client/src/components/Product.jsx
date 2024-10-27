@@ -15,7 +15,10 @@ const Product = () => {
       const req = await fetch("https://mern-perfume-house-weekend-trainees.onrender.com/api/product/products");
       const res = await req.json();
       console.log(res.product);
-      setData(res.product)
+      localStorage.setItem("perfume-product-api",JSON.stringify(res.product))
+      const token = JSON.parse(localStorage.getItem("perfume-product-api")) ;
+
+      setData(token)
     } catch (error) {
       console.log(error.message);
       

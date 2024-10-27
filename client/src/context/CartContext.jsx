@@ -1,10 +1,36 @@
 import { createContext,useState,useEffect } from "react";
+import toast from 'react-hot-toast';
 
 const CartContext = createContext();
 const cartItemsFromLocalStoragePerf = JSON.parse(localStorage.getItem("cart")) || []
-
 export const CartProvider = ({children})=>{
+  const [user,setUser] = useState(null)
     const [cart, setCart] = useState(cartItemsFromLocalStoragePerf);
+    const token = localStorage.getItem("perf-token");
+    function logout(){
+      localStorage.removeItem("perf-token")
+      setUser(null)
+    } 
+    const verified = async ()=>{
+      try {
+        const req = await fetch("http://localhost:3000/api/auth/verify",{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        })
+        const res = await req.json()
+        console.log(res);
+        if(res.success){
+          setUser(res.user)
+        }else{
+          setUser(null)
+        }
+      } catch (error) {
+        
+      }
+    }
+  
+    
     const handleAddToCart = (item)=>{
         const isPresent = cart.some((product)=> product._id === item._id)
         if(isPresent){
@@ -16,6 +42,7 @@ export const CartProvider = ({children})=>{
           const newItem = {...item, quantity:1}
           setCart([...cart,newItem]);
           console.log([...cart,newItem]);
+          toast.success("added to cart")
           
         }
         
@@ -50,13 +77,14 @@ export const CartProvider = ({children})=>{
         setCart(updatedCart);
       };
       useEffect(()=>{
-        localStorage.setItem("cart",JSON.stringify(cart))
-      },[cart])
+        localStorage.setItem("cart",JSON.stringify(cart));
+        verified()
+      },[cart,user])
     return(
         <CartContext.Provider value={{
             handleAddToCart,
             cart,setCart,handleDecreaseQuantity,handleIncreaseQuantity,calcTotalPrice,
-            removeItem
+            removeItem,user,logout
 
         }}>
             {children}

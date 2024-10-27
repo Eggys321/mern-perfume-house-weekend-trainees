@@ -1,25 +1,60 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
-import { signUpSchema } from '../utils/ValidationSchema';
+import { signInSchema } from '../utils/ValidationSchema';
+import Button from "react-bootstrap/Button";
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
+  const [isClicked,setIsClicked] = useState(false);
+  const navigate = useNavigate()
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors ,isSubmitting},
   } = useForm({
-    resolver: yupResolver(signUpSchema),
+    resolver: yupResolver(signInSchema),
     defaultValues:{
       email:"",
       password:""
     }
   })
 
-  const onSubmit = (data) => console.log(data,errors);
+  const onSubmit = async(data) => {
+    setIsClicked(true)
+    try {
+      const req = await fetch("http://localhost:3000/api/auth/signin",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+      const res = await req.json();
+      console.log(res);
+      if(!res.success){
+        toast.error(res.errMsg);
+        // alert(res.errMsg)
+      }
+      if(res.success){
+        toast.success(res.message)
+        localStorage.setItem("perf-token",res.user.token)
+        navigate("/")
+      }
+      
+    } catch (error) {
+      
+    }finally{
+      setIsClicked(false)
+    }
+  };
+  const btnTxt = isClicked ? "loading..." : "Sign In"
 
   return (
     <>
@@ -29,23 +64,14 @@ const Login = () => {
     <h2 className='text-center text-white'>Login</h2>
 
     <Form onSubmit={handleSubmit(onSubmit)} className='w-50 m-auto bg-white p-5'>
-    <Form.Group as={Row} className="mb-3" controlId="">
-        <Form.Label column sm="2">
-          First name
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control placeholder="first name" type="text"   {...register("firstName")}/>
-          <p>{errors.firstName?.message}</p>
-
-        </Col>
-      </Form.Group>
+    
     <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
         <Form.Label column sm="2">
           Email
         </Form.Label>
         <Col sm="10">
           <Form.Control placeholder="email"  {...register("email")}/>
-          <p>{errors.email?.message}</p>
+          <p className='text-danger'>{errors.email?.message}</p>
 
         </Col>
       </Form.Group>
@@ -56,22 +82,13 @@ const Login = () => {
         </Form.Label>
         <Col sm="10">
           <Form.Control type="password" placeholder="Password" {...register("password")}/>
-          <p>{errors.password?.message}</p>
+          <p className='text-danger'>{errors.password?.message}</p>
 
         </Col>
       </Form.Group>
-      <Form.Group as={Row} className="mb-3" controlId="formPlaintextPasswords">
-        <Form.Label column sm="2">
-          confirm password
-        </Form.Label>
-        <Col sm="10">
-          <Form.Control type="password" placeholder="confirm password" {...register("confirmPwd")} />
-          <span className='text-danger'>{errors.confirmPwd?.message}</span>
-
-        </Col>
-      </Form.Group>
-      <button>Register</button>
-    </Form>
+     
+      <Button variant="primary" type="submit" disabled={isSubmitting}>
+{btnTxt}          </Button>    </Form>
       </div>
 
     </main>
