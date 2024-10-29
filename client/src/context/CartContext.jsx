@@ -52,6 +52,7 @@ export const CartProvider = ({children})=>{
       function removeItem (_id){
         let remove = cart.filter((cartItx)=> cartItx._id !== _id);
         setCart(remove)
+        toast.success("Removed from cart")
         // localStorage.setItem('cart', JSON.stringify(remove));
 
       }
