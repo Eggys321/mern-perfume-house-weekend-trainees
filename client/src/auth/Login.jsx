@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useContext, useState} from 'react';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -8,10 +8,12 @@ import { signInSchema } from '../utils/ValidationSchema';
 import Button from "react-bootstrap/Button";
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import CartContext from '../context/CartContext';
 
 
 const Login = () => {
   const [isClicked,setIsClicked] = useState(false);
+  const {setUser} = useContext(CartContext)
   const navigate = useNavigate()
 
   const {
@@ -46,6 +48,7 @@ const Login = () => {
         toast.success(res.message)
         localStorage.setItem("perf-token",res.user.token)
         navigate("/")
+        setUser()
       }
       
     } catch (error) {
