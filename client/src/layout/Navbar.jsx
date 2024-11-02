@@ -11,14 +11,15 @@ const Navbar = () => {
   // const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isReveal, setIsReveal] = useState(false);
   const {user} = useContext(CartContext)
-  const token = localStorage.getItem("perf-token")
+  const token = localStorage.getItem("perf-token");
+  const fullName = localStorage.getItem("fullName")
   function toggleIsReveal() {
     isReveal ? setIsReveal(false) : setIsReveal(true);
   }
   console.log(user);
   useEffect(()=>{
 
-  },[user])
+  },[])
   return (
     <>
       <nav className="container py-4 d-flex justify-content-between align-items-center">
@@ -31,7 +32,7 @@ const Navbar = () => {
             <>
               <div className="position-relative">
                 <h1>
-                   {`Hi, ${user?.firstName} ${user?.lastName}`}
+                   {`Hi, ${fullName}`}
                   <span className="ms-3">
                     {isReveal ? (
                       <img

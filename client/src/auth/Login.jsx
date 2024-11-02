@@ -47,6 +47,7 @@ const Login = () => {
       if(res.success){
         toast.success(res.message)
         localStorage.setItem("perf-token",res.user.token)
+        localStorage.setItem("fullName",`${res.user.firstName} ${res.user.lastName}`)
         navigate("/")
         setUser()
       }

@@ -9,6 +9,7 @@ export const CartProvider = ({children})=>{
     const token = localStorage.getItem("perf-token");
     function logout(){
       localStorage.removeItem("perf-token")
+      localStorage.removeItem("fullName")
       setUser(null)
     } 
     const verified = async ()=>{
@@ -80,7 +81,7 @@ export const CartProvider = ({children})=>{
       useEffect(()=>{
         localStorage.setItem("cart",JSON.stringify(cart));
         verified()
-      },[cart,user])
+      },[cart])
     return(
         <CartContext.Provider value={{
             handleAddToCart,

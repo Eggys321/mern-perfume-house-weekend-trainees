@@ -13,7 +13,8 @@ const OffCanvass = ({ name, ...props }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const token = localStorage.getItem("perf-token")
+  const token = localStorage.getItem("perf-token");
+  const fullName = localStorage.getItem("fullName")
 
   return (
     <>
@@ -23,7 +24,7 @@ const OffCanvass = ({ name, ...props }) => {
       <Offcanvas show={show} onHide={handleClose} {...props}>
         <Offcanvas.Body>
           {token ? <div className="d-flex pt-5 flex-column justify-content-center align-items-center">
-            <h1>   {`Hi, ${user?.firstName} ${user?.lastName}`} </h1>
+            <h1>   {`Hi, ${fullName}`} </h1>
             <div className="w-50">
               <LogOut/>
             </div>
